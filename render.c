@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-extern int width;
-extern int *a, *b;
-extern int Na, Nb;
-extern int to_enter;
 
 void render_room(char room) {
     printf(" ");
@@ -110,4 +106,3 @@ int render(char room, int idx, int update) {
 
     return idx;
 }
-
