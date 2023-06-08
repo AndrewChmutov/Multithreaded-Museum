@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <math.h>
 
-#define WIDTH 9
+const int width = 9;
 
 pthread_mutex_t mut;
 pthread_mutex_t mut_a;
@@ -18,19 +18,13 @@ int *a, *b;
 int to_enter;
 
 
-enum Decision{
-    LEAVE,
-    VISIT_B
-} typedef Decision;
-
-
 void visitor_A();
 
 // pure output
 void render_room(char room) {
     printf(" ");
-    for (int i = 0; i < WIDTH; i++) {
-        if (i == WIDTH / 2)
+    for (int i = 0; i < width; i++) {
+        if (i == width / 2)
             printf("%c", room);
         else
             printf("_");
@@ -51,11 +45,11 @@ void render_room(char room) {
         fprintf(stderr, "Error in rendering rooms: No such room\n");
 
 
-    int n = ceil(1.0 * s / WIDTH);
+    int n = ceil(1.0 * s / width);
     int k = 0;
     for (int i = 0; i < n; i++) {
         printf("|");
-        for(int j = 0; j < WIDTH; j++) {
+        for(int j = 0; j < width; j++) {
             if (k < s) 
                 printf("%c", (arr[k] == 1 ? '#' : '.'));
             else
@@ -115,8 +109,8 @@ int render(char room, int idx, int update) {
         render_room('A');
 
         printf("|");
-        for (int i = 0; i < WIDTH; i++) {
-            if (i == WIDTH / 2)
+        for (int i = 0; i < width; i++) {
+            if (i == width / 2)
                 printf(" ");
             else
                 printf("_");
