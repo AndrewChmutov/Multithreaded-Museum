@@ -154,6 +154,13 @@ int main(int argc, char **argv) {
     for (int i = 0; i < t; i++) 
         pthread_join(thread[i], NULL);
 
+    pthread_mutex_destroy(&mut);
+    pthread_mutex_destroy(&mut_a);
+    pthread_mutex_destroy(&mut_b);
+    pthread_mutex_destroy(&mut_out);
+    pthread_cond_destroy(&cond_a);
+    pthread_cond_destroy(&cond_b);
+    pthread_cond_destroy(&cond_out);
     free(b);
     free(a);
 
