@@ -26,7 +26,7 @@ void visitor_B() {
 
 void visitor_A() {
     // if room A is full - wait
-    usleep(random() % 500000);
+    usleep(rand() % 500000);
     pthread_mutex_lock(&mut_a);
     while (freeA == 1) 
         pthread_cond_wait(&cond_a, &mut_a);
@@ -46,7 +46,7 @@ void visitor_A() {
     // randomly decides
     // either to enter room B
     // or leave
-    if (1) {
+    if (rand() % 3) {
         // enter room B
         pthread_mutex_lock(&mut_b);
         while (freeB == 0)
