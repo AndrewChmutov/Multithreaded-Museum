@@ -5,18 +5,29 @@
 #include <math.h>
 #include "multivisit.h"
 
+// width of the output box
 const int width = 9;
 
+// output control
 pthread_mutex_t mut;
+
+// enter to rooms
 pthread_mutex_t mut_a;
 pthread_mutex_t mut_b;
-pthread_mutex_t mut_out;
 pthread_cond_t cond_a;
 pthread_cond_t cond_b;
+int freeA, freeB;
+
+// control over total amount of visitors
+pthread_mutex_t mut_out;
 pthread_cond_t cond_out;
-int Na, Nb, freeA, freeB, total_allowed;
+int total_allowed;
+
+// tracking the visitors
+int Na, Nb;
 int *a, *b;
 int to_enter;
+
 
 int main(int argc, char **argv) {
     srand(time(NULL));
@@ -43,20 +54,22 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-
-    int t = to_enter;
-
+    // reserve one place for B visitors to leave in shortst time
     total_allowed = Na + Nb - 1, freeA = Na, freeB = Nb;
+
+    // initialize arrays with 0 - nobody in
     a = calloc(Na, sizeof(int));
     b = calloc(Nb, sizeof(int));
 
-
     pthread_t thread[1000];
+
+    // initialization of mutexes
     pthread_mutex_init(&mut, NULL);
     pthread_mutex_init(&mut_out, NULL);
     pthread_mutex_init(&mut_a, NULL);
     pthread_mutex_init(&mut_b, NULL);
     
+    int t = to_enter;
     for (int i = 0; i < t; i++) 
         pthread_create(&thread[i], NULL, worker, NULL);
     
